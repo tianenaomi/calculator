@@ -1,0 +1,75 @@
+html {
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+#calculatorBorder,
+#display {
+    border: 1px solid red; /*why does the top margin disappear on #display when this is removed?*/
+    margin: 0 auto;
+}
+
+#calculatorBorder {
+    background-color: #444444;
+    border-radius: 12px;
+    height: 80vh;
+    width: 400px;
+}
+
+#display {
+    background-color: lightgray;
+    
+    border-radius: 8px;
+    color: #282828;
+    font-family: "ZCOOL QingKe HuangYou", sans-serif;
+    font-size: 60px;
+    height: 82px;
+    margin: 20px auto;
+    text-align: right;    
+    width: 348px;
+}
+
+button {
+    border-radius: 6px;
+    font-family: "Jura", sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    height: 82px;
+    margin: 0;
+    width: 82px;
+}
+
+#clear {
+    width: 88px;
+}
+
+#clearCtnr {
+    border: 1px solid cornflowerblue;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin: 0 auto;
+    width: 348px;
+}
+
+#allBtnCtnr {
+    border: 1px solid seagreen;
+    display: flex;
+    width: 348px;
+    margin: 0 auto;
+}
+
+/* #operatorCtnr {
+    display: flex;
+    flex-direction: column;
+} */
+
+
+
+
+

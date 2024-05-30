@@ -4,24 +4,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@400;500;600;700&family=Jura:wght@300..700&family=Saira+Semi+Condensed:wght@400;500;600;700;800;900&family=Saira:ital,wght@0,100..900;1,100..900&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
 </head>
     <body>
-        <span id="display" value="0">0</span>
-        <button>clear</button>
-        <button>+</button>
-        <button>-</button>
-        <button>*</button>
-        <button>/</button>
-        <button>=</button>
-        <button>0</button>
-        <button>1</button>
-        <button>2</button>
-        <button>3</button>
-        <button>4</button>
-        <button>5</button>
-        <button>6</button>
-        <button>7</button>
-        <button>8</button>
-        <button>9</button>
+        <div id="calculatorBorder">
+
+            <div id="display" value="0">1234567890</div>
+
+            <div id="clearCtnr">
+                <button id="clear">clear</button>
+            </div>
+
+            <div id="allBtnCtnr">
+
+                <div id="allNumCtnr">
+                    <div class="numberCtnr">
+                        <button>1</button>
+                        <button>2</button>
+                        <button>3</button>
+                        <button>*</button>
+                    </div>
+
+                    <div class="numberCtnr">
+                        <button>4</button>
+                        <button>5</button>
+                        <button>6</button>
+                        <button>/</button>
+                    </div>
+
+                    <div class="numberCtnr">
+                        <button>7</button>
+                        <button>8</button>
+                        <button>9</button>
+                        <button>-</button>
+                    </div>
+
+                    <div class="numberCtnr">
+                        <button>0</button>
+                        <button>.</button>
+                        <button>=</button>
+                        <button>+</button>
+                    </div>  
+                </div>
+
+                <!-- <div id="operatorCtnr">
+                    <button>*</button>
+                    <button>/</button>
+                    <button>-</button>
+                    <button>+</button>
+                                  
+                </div> -->
+            </div>
+        </div>
     </body>
 </html>
