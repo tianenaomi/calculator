@@ -10,7 +10,7 @@ html {
 
 #calculatorBorder,
 #display {
-    border: 1px solid red; /*why does the top margin disappear on #display when this is removed?*/
+    border: 1px solid red;
     margin: 0 auto;
 }
 
@@ -39,7 +39,7 @@ button {
     font-family: "Jura", sans-serif;
     font-size: 28px;
     font-weight: 700;
-    height: 82px;
+    /* height: 82px; */
     margin: 0;
     width: 82px;
 }
