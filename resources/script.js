@@ -9,10 +9,11 @@ const eight = document.getElementById('8').addEventListener('click', () => displ
 const nine = document.getElementById('9').addEventListener('click', () => displayNum(9));
 const zero = document.getElementById('0').addEventListener('click', () => displayNum(0));
 
-const clear = document.getElementById('clear');
+const clear = document.getElementById('clear').addEventListener('click', () => clearDisplay());
 const display = document.getElementById('display');
 const divide = document.getElementById('/').addEventListener('click', () => displayOperator('/'));
-const equals = document.getElementById('=');
+const dot = document.getElementById('.').addEventListener('click', () => displayOperator('.'));
+const equals = document.getElementById('=').addEventListener('click', () => operate(aNum, bNum, operator));
 const minus = document.getElementById('-').addEventListener('click', () => displayOperator('-'));
 const mutliply = document.getElementById('*').addEventListener('click', () => displayOperator('*'));
 const plus = document.getElementById('+').addEventListener('click', () => displayOperator('+'));
@@ -50,8 +51,9 @@ function operate(aNum, bNum, operator){
     } else if (operator == '/'){
         divideBy(aNum, bNum);
     }
+    result = result.toString(); 
+    if (result.length >= 11) result = roundNum(result);
     return display.textContent = result;
-    //add logic to clear last answer
 }
 
 function displayNum(num){
@@ -76,10 +78,6 @@ function displayOperator(operatorSelection){
     //add logic for CSS button pressed
 }
 
-equals.addEventListener('click', () => operate(aNum, bNum, operator));
-
-clear.addEventListener('click', () => clearDisplay());
-
 function clearDisplay() {
     display.textContent = "0"
     aNum = '';
@@ -88,3 +86,30 @@ function clearDisplay() {
     result = ''; 
 }
 
+function roundNum(result){
+    let resultExpanded = Array.from(String(result));
+    if (resultExpanded[10] == 9){
+        ++resultExpanded[9]
+        resultExpanded[10] = 0;
+    } else if (resultExpanded[10] >= 5){
+        ++resultExpanded[10];
+    } else if (resultExpanded[10] < 5) {
+        --resultExpanded[10];
+    }    
+    let resultShortened = resultExpanded.slice(0, 11);
+    let newResult = resultShortened.join('');
+    return +newResult;
+}
+
+// TEST CENTRE
+// console.log(roundNum(1.666666669999999)); //1.6666666670
+// console.log(roundNum(1.6666666666666667)); //1.6666666667
+// console.log(roundNum(1.6666666644444444)); //1.6666666665
+
+
+/*
+PROBLEMS TO SOLVE
+1. long numbers need to be rounded to fit display
+2. add logic for floating numbers
+3. add keyboard support
+*/
