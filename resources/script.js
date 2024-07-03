@@ -9,15 +9,18 @@ const eight = document.getElementById('8').addEventListener('click', () => displ
 const nine = document.getElementById('9').addEventListener('click', () => displayNum(9));
 const zero = document.getElementById('0').addEventListener('click', () => displayNum(0));
 
+const aNumDisp = document.getElementById('aNumDisp');
+const bNumDisp = document.getElementById('bNumDisp');
 const clear = document.getElementById('clear').addEventListener('click', () => clearDisplay());
-const display = document.getElementById('display');
 const divide = document.getElementById('/').addEventListener('click', () => displayOperator('/'));
 const dot = document.getElementById('.').addEventListener('click', () => displayOperator('.'));
 const equals = document.getElementById('=').addEventListener('click', () => operate(aNum, bNum, operator));
+const equalsDisp = document.getElementById('equalsDisp');
 const minus = document.getElementById('-').addEventListener('click', () => displayOperator('-'));
 const mutliply = document.getElementById('*').addEventListener('click', () => displayOperator('*'));
+const opDisp = document.getElementById('opDisp');
 const plus = document.getElementById('+').addEventListener('click', () => displayOperator('+'));
-
+const resultDisp = document.getElementById('resultDisp');
 
 let aNum = '';
 let bNum = '';
@@ -42,6 +45,7 @@ function multiply(aNum, bNum){
 }
 
 function operate(aNum, bNum, operator){
+    equalsDisp.textContent = '=';
     if (operator == '+') {
         add(aNum, bNum);
     } else if (operator == '-'){
@@ -53,33 +57,35 @@ function operate(aNum, bNum, operator){
     }
     result = result.toString(); 
     if (result.length >= 11) result = roundNum(result);
-    return display.textContent = result;
+    return resultDisp.textContent = result;
 }
 
 function displayNum(num){
     if (result != '') clearDisplay();
-    (display.textContent == 0 
-    || display.textContent == 'enter num' 
-    || display.textContent.includes('+') 
-    || display.textContent.includes('-') 
-    || display.textContent.includes('*') 
-    || display.textContent.includes('/'))
-        ? display.textContent = num : display.textContent += num;
-    aNum == '' ? aNum = num : bNum = num;
+    opDisp.textContent == '' ? aNumDisp.textContent += num : 
+    bNumDisp.textContent += num;
+    resultDisp.textContent = '';
+    // STORING VARIABLES
+    operator == '' ? aNum = +aNumDisp.textContent : 
+    bNum = +bNumDisp.textContent;
 }
 
 function displayOperator(operatorSelection){
-    if (display.textContent == 0 || display.textContent == '') {
-        display.textContent = 'enter num';
+    if (aNumDisp.textContent == '') {
+        resultDisp.textContent = 'enter num';
     } else {
-        display.textContent = operatorSelection;
+        opDisp.textContent = operatorSelection;
         operator = operatorSelection;  
     }
     //add logic for CSS button pressed
 }
 
 function clearDisplay() {
-    display.textContent = "0"
+    resultDisp.textContent = '0';
+    aNumDisp.textContent = '';
+    opDisp.textContent = '';
+    bNumDisp.textContent = '';
+    equalsDisp.textContent = '';
     aNum = '';
     bNum = '';
     operator = ''; 
@@ -101,6 +107,22 @@ function roundNum(result){
     return +newResult;
 }
 
+// TEST KEYBOARD SUPPORT
+// resultDisp.focus().addEventListener('keydown', (event) => {
+//     // console.log(`key=${event.key}, code=${event.code}`);
+//     let key = event.key;
+//     // if (key == 0) {resultDisp.textContent = 0};
+//     if (key == 1) {resultDisp.textContent = 1};
+//     // if (key == 2) {resultDisp.textContent = 2};
+//     // if (key == 3) {resultDisp.textContent = 3};
+//     // if (key == 4) {resultDisp.textContent = 4};
+//     // if (key == 5) {resultDisp.textContent = 5};
+//     // if (key == 6) {resultDisp.textContent = 6};
+//     // if (key == 7) {resultDisp.textContent = 7};
+//     // if (key == 8) {resultDisp.textContent = 8};
+//     // if (key == 9) {resultDisp.textContent = 9};
+// });
+
 // TEST CENTRE
 // console.log(roundNum(1.666666669999999)); //1.6666666670
 // console.log(roundNum(1.6666666666666667)); //1.6666666667
@@ -109,7 +131,6 @@ function roundNum(result){
 
 /*
 PROBLEMS TO SOLVE
-1. long numbers need to be rounded to fit display
 2. add logic for floating numbers
 3. add keyboard support
 */

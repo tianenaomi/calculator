@@ -12,7 +12,15 @@
     <body>
         <div id="calculatorBorder">
 
-            <div id="display">0</div>
+            <div id="display" tabindex="0">
+                <div id="sumCtnr">
+                    <span id="aNumDisp"></span>
+                    <span id="opDisp"></span>
+                    <span id="bNumDisp"></span>
+                    <span id="equalsDisp"></span>  
+                </div>
+                <div id="resultDisp">0</div>
+            </div>
 
             <div id="clearCtnr">
                 <button id="clear">clear</button>
@@ -48,13 +56,6 @@
                         <button class ="operator" id="+">+</button>
                     </div>  
                 </div>
-
-                <!-- <div id="operatorCtnr">
-                    <button>*</button>
-                    <button>/</button>
-                    <button>-</button>
-                    <button>+</button>             
-                </div> -->
             </div>
         </div>
     <script src="resources/script.js"></script>

@@ -27,11 +27,15 @@ html {
     border-radius: 8px;
     color: #282828;
     font-family: "ZCOOL QingKe HuangYou", sans-serif;
-    font-size: 60px;
+    /* font-size: 60px; */
     height: 82px;
     margin: 20px auto;
     text-align: right;    
     width: 348px;
+}
+
+#resultDisp {
+    font-size: 60px;
 }
 
 button {
@@ -69,6 +73,23 @@ button {
     flex-direction: column;
 } */
 
+#sumCtnr {
+    display: flex;
+    gap: 2px;
+    justify-content: flex-end;
+    font-size: 18px;
+
+}
+
+#aNumDisp,
+#opDisp,
+#bNumDisp,
+#equalsDisp {
+    border: 1px dashed #fc35ad;
+    height: 20px;
+    width: 20px;
+    margin: 8px 2px 0px;
+}
 
 
 
