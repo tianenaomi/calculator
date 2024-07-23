@@ -7,33 +7,31 @@ const six = document.getElementById('6').addEventListener('click', () => display
 const seven = document.getElementById('7').addEventListener('click', () => displayNum(7));
 const eight = document.getElementById('8').addEventListener('click', () => displayNum(8));
 const nine = document.getElementById('9').addEventListener('click', () => displayNum(9));
-const zero = document.getElementById('0').addEventListener('click', () => displayNum(0));
+const zero = document.getElementById('zero').addEventListener('click', () => displayNum(0));
 
+let aNum = '';
+let bNum = '';
 const aNumDisp = document.getElementById('aNumDisp');
 const bNumDisp = document.getElementById('bNumDisp');
 const clear = document.getElementById('clear').addEventListener('click', () => clearDisplay());
 const divide = document.getElementById('/').addEventListener('click', () => displayOperator('/'));
-const dot = document.getElementById('.').addEventListener('click', () => displayOperator('.'));
-const equals = document.getElementById('=').addEventListener('click', () => operate(aNum, bNum, operator));
+const dot = document.getElementById('dot').addEventListener('click', () => displayDot('.')); //working on function in test centre
+const equals = document.getElementById('=').addEventListener('click', () => displayEquals(aNum, operator, bNum));
 const equalsDisp = document.getElementById('equalsDisp');
 const minus = document.getElementById('-').addEventListener('click', () => displayOperator('-'));
 const mutliply = document.getElementById('*').addEventListener('click', () => displayOperator('*'));
 const opDisp = document.getElementById('opDisp');
-const plus = document.getElementById('+').addEventListener('click', () => displayOperator('+'));
-const resultDisp = document.getElementById('resultDisp');
-
-let aNum = '';
-let bNum = '';
 let operator = '';
+const plus = document.getElementById('+').addEventListener('click', () => displayOperator('+'));
 let result = '';
-let displayValue;
+const resultDisp = document.getElementById('resultDisp');
 
 function add(aNum, bNum){
     return result = aNum + bNum;
 }
 
 function divideBy(aNum, bNum){
-    return result = aNum / bNum;
+    (bNum === 0) ? result = "bum bum!" : result = aNum / bNum;
 }
 
 function subtract(aNum, bNum){
@@ -44,8 +42,16 @@ function multiply(aNum, bNum){
     return result = aNum * bNum;
 }
 
+function displayEquals(aNum, operator, bNum){
+    if (aNum === '' || operator === '' || bNum === ''){
+        return resultDisp.textContent = 'error!';
+    } else {
+        operate(aNum, bNum, operator);
+    } 
+    return result;
+}
+
 function operate(aNum, bNum, operator){
-    equalsDisp.textContent = '=';
     if (operator == '+') {
         add(aNum, bNum);
     } else if (operator == '-'){
@@ -61,13 +67,14 @@ function operate(aNum, bNum, operator){
 }
 
 function displayNum(num){
-    if (result != '') clearDisplay();
+    if (result != '' || resultDisp.textContent == 'error!') clearDisplay();
     opDisp.textContent == '' ? aNumDisp.textContent += num : 
     bNumDisp.textContent += num;
     resultDisp.textContent = '';
-    // STORING VARIABLES
-    operator == '' ? aNum = +aNumDisp.textContent : 
-    bNum = +bNumDisp.textContent;
+
+    // not sure why I've written the below? Operate function seems to work without it
+    // operator == '' ? aNum = +aNumDisp.textContent : 
+    // bNum = +bNumDisp.textContent;
 }
 
 function displayOperator(operatorSelection){
@@ -107,30 +114,52 @@ function roundNum(result){
     return +newResult;
 }
 
-// TEST KEYBOARD SUPPORT
-// resultDisp.focus().addEventListener('keydown', (event) => {
-//     // console.log(`key=${event.key}, code=${event.code}`);
-//     let key = event.key;
-//     // if (key == 0) {resultDisp.textContent = 0};
-//     if (key == 1) {resultDisp.textContent = 1};
-//     // if (key == 2) {resultDisp.textContent = 2};
-//     // if (key == 3) {resultDisp.textContent = 3};
-//     // if (key == 4) {resultDisp.textContent = 4};
-//     // if (key == 5) {resultDisp.textContent = 5};
-//     // if (key == 6) {resultDisp.textContent = 6};
-//     // if (key == 7) {resultDisp.textContent = 7};
-//     // if (key == 8) {resultDisp.textContent = 8};
-//     // if (key == 9) {resultDisp.textContent = 9};
-// });
+// KEYBOARD SUPPORT
+window.addEventListener('keydown', (e) => {
+    if (e.key === '0') {displayNum(0)};
+    if (e.key === '1') {displayNum(1)};
+    if (e.key === '2') {displayNum(2)};
+    if (e.key === '3') {displayNum(3)};
+    if (e.key === '4') {displayNum(4)};
+    if (e.key === '5') {displayNum(5)};
+    if (e.key === '6') {displayNum(6)};
+    if (e.key === '7') {displayNum(7)};
+    if (e.key === '8') {displayNum(8)};
+    if (e.key === '9') {displayNum(9)};
+    if (e.key === '.') {displayDot('.')}; //working on this function in test centre
+    if (e.key === '+') {displayOperator('+')};
+    if (e.key === '-') {displayOperator('-')};
+    if (e.key === '/') {displayOperator('/')};
+    if (e.key === '*') {displayOperator('*')};
+    // if (e.key === '=') {displayEquals(aNum, operator, bNum)};
+    if (e.key === 'c') {clearDisplay()};
+});
 
+    
 // TEST CENTRE
-// console.log(roundNum(1.666666669999999)); //1.6666666670
-// console.log(roundNum(1.6666666666666667)); //1.6666666667
-// console.log(roundNum(1.6666666644444444)); //1.6666666665
+function displayDot(dot){
+    if (result != '' || resultDisp.textContent == 'error!') clearDisplay();
+    // need to write logic that only allows dot once per num display. currently able to type 1.22.33
+    +aNumDisp;
+    +bNumDisp;
+    if (opDisp.textContent == '') {
+        if (aNumDisp.textContent.includes == '.'){
+            return ; //don't allow another dot
+        } else aNumDisp.textContent += dot;
+    } else {
+        if (bNumDisp.textContent.includes == '.'){
+            return ; //don't allow another dot
+        } else bNumDisp.textContent += dot;
+    }
+    // (opDisp.textContent == '') ? aNumDisp.textContent += num : bNumDisp.textContent += num;
+}
 
+// operator == '' ? aNum = +aNumDisp.textContent : bNum = +bNumDisp.textContent;
 
 /*
 PROBLEMS TO SOLVE
-2. add logic for floating numbers
-3. add keyboard support
+1. logic so decimal can only be added once per aNum or bNum
+
+
+
 */
