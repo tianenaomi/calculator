@@ -1,3 +1,20 @@
+/* COLOUR PALETTE
+FEBE98 = PEACH (Primary, logo, headlines, backgrounds)
+DF7F83 = ROSE (Primary, logo, headlines, buttons, backgrounds)
+F0CFBA = EGGSHELL (Neutral, background)
+F2E9D9 = OFF WHITE (Neutral, background)
+F87472 = SALMON (Accent, button)
+464646 = GREY (Text)
+
+938B75 = OLIVE
+CECFE2 = LAVENDER
+E6EAED = GREY
+FAF2EB = OFF WHITE
+F4BB83 = ORANGE
+33312E = CHARCOAL
+4682B4 = BLUE
+*/
+
 html {
     box-sizing: border-box;
 }
@@ -8,88 +25,125 @@ html {
     box-sizing: inherit;
 }
 
-#calculatorBorder,
-#display {
-    border: 1px solid red;
-    margin: 0 auto;
-}
-
-#calculatorBorder {
-    background-color: #444444;
+#calculatorBorder { 
+    background-color: #CECFE2 ;
+    border: 8px outset #B9BBDA;
     border-radius: 12px;
-    height: 80vh;
-    width: 400px;
+    /* height: 348px; */
+    margin: 0 auto;
+    width: 508px;
 }
 
 #display {
-    background-color: lightgray;
-    
+    background-color: #E6EAED;
+    border: 4px inset #B9BBDA;
     border-radius: 8px;
-    color: #282828;
+    color: #33312E;
+    display: flex;
+    flex-direction: column;
     font-family: "ZCOOL QingKe HuangYou", sans-serif;
-    /* font-size: 60px; */
-    height: 82px;
+    height: 92px;
+    justify-content: space-between;
     margin: 20px auto;
-    text-align: right;    
-    width: 348px;
+    text-align: right;
+    width: 478px;    
+}
+
+#sumCtnr {
+    display: flex;
+    font-size: 22px;
+    gap: 4px;
+    justify-content: flex-end;
+    margin: 4px 6px 0px;
+    padding: 1px;
+}
+
+#aNumDisp,
+#bNumDisp {
+    border: 1px dashed #fc35ad;
+    height: 20px;
+    min-width: 20px;
+    text-align: center;
+    width: auto;
+}
+
+#opDisp,
+#equalsDisp {
+    border: 1px dashed #fc35ad;
+    height: 20px;
+    text-align: center;
+    width: 20px;
 }
 
 #resultDisp {
-    font-size: 60px;
+    /* border: 1px solid yellow; */
+    font-size: 48px;
+    height: 48px;
+    margin: 6px;
+    padding: 0;
 }
 
 button {
     border-radius: 6px;
+    color: #33312E;
+    display: inline-block;
     font-family: "Jura", sans-serif;
     font-size: 28px;
-    font-weight: 700;
+    font-weight: 900;
     /* height: 82px; */
     margin: 0;
-    width: 82px;
-}
-
-#clear {
-    width: 88px;
-}
-
-#clearCtnr {
-    border: 1px solid cornflowerblue;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    margin: 0 auto;
-    width: 348px;
+    padding: 0;
+    width: 94px;
 }
 
 #allBtnCtnr {
-    border: 1px solid seagreen;
-    display: flex;
-    width: 348px;
-    margin: 0 auto;
-}
-
-/* #operatorCtnr {
+    /* border: 1px solid seagreen; */
     display: flex;
     flex-direction: column;
-} */
+    gap: 2px;
+    margin: 0 auto; 
+    width: 478px;
+}
 
-#sumCtnr {
+.numberCtnr {
     display: flex;
+    font-size: 0;
     gap: 2px;
     justify-content: flex-end;
-    font-size: 18px;
-
 }
 
-#aNumDisp,
-#opDisp,
-#bNumDisp,
-#equalsDisp {
-    border: 1px dashed #fc35ad;
-    height: 20px;
-    width: 20px;
-    margin: 8px 2px 0px;
+.bottom {
+    margin-bottom: 20px;
 }
+
+.integer {
+    background-color: #FAF2EB;
+    border: 2px outset #d0c0b1;
+}
+
+.operator {
+    background-color: #A6E3E9;
+    border: 2px outset #7fbfc5;
+}
+
+.operatorEquals {
+    background-color: #6495ED;
+    border: 2px outset #3e6cc1;
+}
+
+#back,
+#clear {
+    background-color: #938B75;
+    border: 2px outset #766f58;
+}
+
+button:hover,
+#back:hover,
+#clear:hover {
+    background-color: #F4BB83;
+    border: 2px outset #d49a5f;
+}
+
 
 
 

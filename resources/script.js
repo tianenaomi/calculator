@@ -15,7 +15,7 @@ const aNumDisp = document.getElementById('aNumDisp');
 const bNumDisp = document.getElementById('bNumDisp');
 const clear = document.getElementById('clear').addEventListener('click', () => clearDisplay());
 const divide = document.getElementById('/').addEventListener('click', () => displayOperator('/'));
-const dot = document.getElementById('dot').addEventListener('click', () => displayDot('.')); //working on function in test centre
+const dot = document.getElementById('dot').addEventListener('click', () => displayDot('.'));
 const equals = document.getElementById('=').addEventListener('click', () => displayEquals(aNum, operator, bNum));
 const equalsDisp = document.getElementById('equalsDisp');
 const minus = document.getElementById('-').addEventListener('click', () => displayOperator('-'));
@@ -46,9 +46,37 @@ function displayEquals(aNum, operator, bNum){
     if (aNum === '' || operator === '' || bNum === ''){
         return resultDisp.textContent = 'error!';
     } else {
+        equalsDisp.textContent = '=';
         operate(aNum, bNum, operator);
     } 
     return result;
+}
+
+function displayNum(num){
+    if (result != '' || resultDisp.textContent == 'error!') clearDisplay();
+
+    opDisp.textContent == '' ? aNumDisp.textContent += num : 
+    bNumDisp.textContent += num;
+    resultDisp.textContent = '';
+    operator == '' ? aNum = +aNumDisp.textContent : 
+    bNum = +bNumDisp.textContent;
+}
+
+function displayOperator(operatorSelection){
+    // IF aNum display is empty THEN
+    if (aNumDisp.textContent == '') {
+        //OUTPUT 'enter num' in result display
+        resultDisp.textContent = 'enter num';
+    //  ELSE IF aNum is not empty AND operator is empty
+    } else {
+        // OUPUT empty string in result display
+        resultDisp.textContent = '';
+        // OUTPUT operator selected by user in operator display
+        opDisp.textContent = operatorSelection;
+        // STORE operator selected in operator variable
+        operator = operatorSelection;  
+
+    } //ELSE IF operator display is not empty //
 }
 
 function operate(aNum, bNum, operator){
@@ -61,30 +89,28 @@ function operate(aNum, bNum, operator){
     } else if (operator == '/'){
         divideBy(aNum, bNum);
     }
-    result = result.toString(); 
-    if (result.length >= 11) result = roundNum(result);
-    return resultDisp.textContent = result;
+    // removing rounding function
+    // result = result.toString(); 
+    // if (result.length >= 11) result = roundNum(result);
+    displayResult(result);
 }
 
-function displayNum(num){
+function displayDot(dot){
     if (result != '' || resultDisp.textContent == 'error!') clearDisplay();
-    opDisp.textContent == '' ? aNumDisp.textContent += num : 
-    bNumDisp.textContent += num;
-    resultDisp.textContent = '';
-
-    // not sure why I've written the below? Operate function seems to work without it
-    // operator == '' ? aNum = +aNumDisp.textContent : 
-    // bNum = +bNumDisp.textContent;
-}
-
-function displayOperator(operatorSelection){
-    if (aNumDisp.textContent == '') {
-        resultDisp.textContent = 'enter num';
+    aNum = aNum.toString();
+    bNum = bNum.toString();
+    console.log(typeof aNumDisp.textContent)
+    if (opDisp.textContent == '') {
+        if (aNumDisp.textContent.includes('.')){
+            return; //don't allow another dot
+        } else aNumDisp.textContent += dot;
     } else {
-        opDisp.textContent = operatorSelection;
-        operator = operatorSelection;  
+        if (bNumDisp.textContent.includes('.')){
+            return; //don't allow another dot
+        } else bNumDisp.textContent += dot;
     }
-    //add logic for CSS button pressed
+    aNum = +aNum;
+    bNum = +bNum;
 }
 
 function clearDisplay() {
@@ -99,23 +125,24 @@ function clearDisplay() {
     result = ''; 
 }
 
-function roundNum(result){
-    let resultExpanded = Array.from(String(result));
-    if (resultExpanded[10] == 9){
-        ++resultExpanded[9]
-        resultExpanded[10] = 0;
-    } else if (resultExpanded[10] >= 5){
-        ++resultExpanded[10];
-    } else if (resultExpanded[10] < 5) {
-        --resultExpanded[10];
-    }    
-    let resultShortened = resultExpanded.slice(0, 11);
-    let newResult = resultShortened.join('');
-    return +newResult;
-}
+// function roundNum(result){
+//     let resultExpanded = Array.from(String(result));
+//     if (resultExpanded[10] == 9){
+//         ++resultExpanded[9]
+//         resultExpanded[10] = 0;
+//     } else if (resultExpanded[10] >= 5){
+//         ++resultExpanded[10];
+//     } else if (resultExpanded[10] < 5) {
+//         --resultExpanded[10];
+//     }    
+//     let resultShortened = resultExpanded.slice(0, 11);
+//     let newResult = resultShortened.join('');
+//     return +newResult;
+// }
 
 // KEYBOARD SUPPORT
 window.addEventListener('keydown', (e) => {
+    // console.log(e);
     if (e.key === '0') {displayNum(0)};
     if (e.key === '1') {displayNum(1)};
     if (e.key === '2') {displayNum(2)};
@@ -126,39 +153,72 @@ window.addEventListener('keydown', (e) => {
     if (e.key === '7') {displayNum(7)};
     if (e.key === '8') {displayNum(8)};
     if (e.key === '9') {displayNum(9)};
-    if (e.key === '.') {displayDot('.')}; //working on this function in test centre
+    if (e.key === '.') {displayDot('.')};
     if (e.key === '+') {displayOperator('+')};
     if (e.key === '-') {displayOperator('-')};
     if (e.key === '/') {displayOperator('/')};
     if (e.key === '*') {displayOperator('*')};
-    // if (e.key === '=') {displayEquals(aNum, operator, bNum)};
-    if (e.key === 'c') {clearDisplay()};
+    if (e.key === '=') {displayEquals(aNum, operator, bNum)};
+    if (e.key === 'c' || e.key === 'C') {clearDisplay()};
 });
-
     
 // TEST CENTRE
-function displayDot(dot){
-    if (result != '' || resultDisp.textContent == 'error!') clearDisplay();
-    // need to write logic that only allows dot once per num display. currently able to type 1.22.33
-    +aNumDisp;
-    +bNumDisp;
-    if (opDisp.textContent == '') {
-        if (aNumDisp.textContent.includes == '.'){
-            return ; //don't allow another dot
-        } else aNumDisp.textContent += dot;
-    } else {
-        if (bNumDisp.textContent.includes == '.'){
-            return ; //don't allow another dot
-        } else bNumDisp.textContent += dot;
-    }
-    // (opDisp.textContent == '') ? aNumDisp.textContent += num : bNumDisp.textContent += num;
+
+/* SOLVE ONE PROBLEM AT A TIME
+prep
+1. separate displaying result out from operate function
+2. make displayResult it's own function
+
+INPUT operator
+function one problem at a time() {
+    IF bNum is not empty THEN
+        CALL operate function
+        OUTPUT result in aNumDisp
+        opDisp equals operator selected
 }
 
-// operator == '' ? aNum = +aNumDisp.textContent : bNum = +bNumDisp.textContent;
+function displayResult() {
+    IF equalsDisp is empty THEN
+        DISPLAY result in aNumDisp
+    ELSE IF equalsDips is not empty THEN
+        DISPLAY result in resultsDisp
+}
+
+
+
+Input aNum
+Input operator
+Input bNum
+
+Input second operator
+    Display result in nNumDisp
+    Display new operator input
+    Clear input from bNumDisp
+
+*/
+
+function evalNextSum(aNum, operator, bNum){
+    if (bNumDisp.textContent != ''){
+        operate(aNum, operator, bNum);
+        displayResult(result);
+    }
+}
+
+function displayResult(result){
+    if (equalsDisp.textContent == ''){
+        aNumDisp.textContent = result;
+        opDisp.textContent = '';
+        bNumDisp.textContent = '';
+        equalsDisp.textContent = '';
+    } else {
+        resultDisp.textContent = result;
+    }
+}
 
 /*
 PROBLEMS TO SOLVE
-1. logic so decimal can only be added once per aNum or bNum
+1. logic to solve one operation at a time.
+2. back button
 
 
 
