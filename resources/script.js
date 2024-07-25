@@ -76,7 +76,8 @@ function displayOperator(operatorSelection){
         // STORE operator selected in operator variable
         operator = operatorSelection;  
 
-    } //ELSE IF operator display is not empty //
+    } //ELSE IF operator display is not empty AND bNum is not empty
+        // CONTINUE THIS TOMORROW
 }
 
 function operate(aNum, bNum, operator){
