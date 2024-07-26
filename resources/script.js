@@ -54,7 +54,6 @@ function displayEquals(aNum, operator, bNum){
 
 function displayNum(num){
     if (result != '' || resultDisp.textContent == 'error!') clearDisplay();
-
     opDisp.textContent == '' ? aNumDisp.textContent += num : 
     bNumDisp.textContent += num;
     resultDisp.textContent = '';
@@ -63,21 +62,22 @@ function displayNum(num){
 }
 
 function displayOperator(operatorSelection){
-    // IF aNum display is empty THEN
     if (aNumDisp.textContent == '') {
-        //OUTPUT 'enter num' in result display
         resultDisp.textContent = 'enter num';
-    //  ELSE IF aNum is not empty AND operator is empty
-    } else {
-        // OUPUT empty string in result display
-        resultDisp.textContent = '';
-        // OUTPUT operator selected by user in operator display
+    } else if (bNumDisp.textContent != ''){
+        operate(aNum, bNum, operator);
+        displayResult(result);
+        aNum = result;
         opDisp.textContent = operatorSelection;
-        // STORE operator selected in operator variable
         operator = operatorSelection;  
-
-    } //ELSE IF operator display is not empty AND bNum is not empty
-        // CONTINUE THIS TOMORROW
+        bNumDisp.textContent = '';
+        bNum = '';
+        result = '';
+    } else {
+        resultDisp.textContent = '';
+        opDisp.textContent = operatorSelection;
+        operator = operatorSelection;  
+    } 
 }
 
 function operate(aNum, bNum, operator){
@@ -96,18 +96,25 @@ function operate(aNum, bNum, operator){
     displayResult(result);
 }
 
+function displayResult(result){
+    if (equalsDisp.textContent == ''){
+        aNumDisp.textContent = result;
+    } else {
+        resultDisp.textContent = result;
+    }
+}
+
 function displayDot(dot){
     if (result != '' || resultDisp.textContent == 'error!') clearDisplay();
     aNum = aNum.toString();
     bNum = bNum.toString();
-    console.log(typeof aNumDisp.textContent)
     if (opDisp.textContent == '') {
         if (aNumDisp.textContent.includes('.')){
-            return; //don't allow another dot
+            return;
         } else aNumDisp.textContent += dot;
     } else {
         if (bNumDisp.textContent.includes('.')){
-            return; //don't allow another dot
+            return; 
         } else bNumDisp.textContent += dot;
     }
     aNum = +aNum;
@@ -126,24 +133,9 @@ function clearDisplay() {
     result = ''; 
 }
 
-// function roundNum(result){
-//     let resultExpanded = Array.from(String(result));
-//     if (resultExpanded[10] == 9){
-//         ++resultExpanded[9]
-//         resultExpanded[10] = 0;
-//     } else if (resultExpanded[10] >= 5){
-//         ++resultExpanded[10];
-//     } else if (resultExpanded[10] < 5) {
-//         --resultExpanded[10];
-//     }    
-//     let resultShortened = resultExpanded.slice(0, 11);
-//     let newResult = resultShortened.join('');
-//     return +newResult;
-// }
-
 // KEYBOARD SUPPORT
 window.addEventListener('keydown', (e) => {
-    // console.log(e);
+    console.log(e);
     if (e.key === '0') {displayNum(0)};
     if (e.key === '1') {displayNum(1)};
     if (e.key === '2') {displayNum(2)};
@@ -159,62 +151,26 @@ window.addEventListener('keydown', (e) => {
     if (e.key === '-') {displayOperator('-')};
     if (e.key === '/') {displayOperator('/')};
     if (e.key === '*') {displayOperator('*')};
-    if (e.key === '=') {displayEquals(aNum, operator, bNum)};
+    if (e.key === '='|| e.key === 'Enter') {displayEquals(aNum, operator, bNum)};
     if (e.key === 'c' || e.key === 'C') {clearDisplay()};
 });
     
-// TEST CENTRE
+// function roundNum(result){
+//     let resultExpanded = Array.from(String(result));
+//     if (resultExpanded[10] == 9){
+//         ++resultExpanded[9]
+//         resultExpanded[10] = 0;
+//     } else if (resultExpanded[10] >= 5){
+//         ++resultExpanded[10];
+//     } else if (resultExpanded[10] < 5) {
+//         --resultExpanded[10];
+//     }    
+//     let resultShortened = resultExpanded.slice(0, 11);
+//     let newResult = resultShortened.join('');
+//     return +newResult;
+// }
 
-/* SOLVE ONE PROBLEM AT A TIME
-prep
-1. separate displaying result out from operate function
-2. make displayResult it's own function
-
-INPUT operator
-function one problem at a time() {
-    IF bNum is not empty THEN
-        CALL operate function
-        OUTPUT result in aNumDisp
-        opDisp equals operator selected
-}
-
-function displayResult() {
-    IF equalsDisp is empty THEN
-        DISPLAY result in aNumDisp
-    ELSE IF equalsDips is not empty THEN
-        DISPLAY result in resultsDisp
-}
-
-
-
-Input aNum
-Input operator
-Input bNum
-
-Input second operator
-    Display result in nNumDisp
-    Display new operator input
-    Clear input from bNumDisp
-
-*/
-
-function evalNextSum(aNum, operator, bNum){
-    if (bNumDisp.textContent != ''){
-        operate(aNum, operator, bNum);
-        displayResult(result);
-    }
-}
-
-function displayResult(result){
-    if (equalsDisp.textContent == ''){
-        aNumDisp.textContent = result;
-        opDisp.textContent = '';
-        bNumDisp.textContent = '';
-        equalsDisp.textContent = '';
-    } else {
-        resultDisp.textContent = result;
-    }
-}
+// ------ TEST CENTRE ------- //
 
 /*
 PROBLEMS TO SOLVE
