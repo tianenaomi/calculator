@@ -1,11 +1,4 @@
 /* COLOUR PALETTE
-FEBE98 = PEACH (Primary, logo, headlines, backgrounds)
-DF7F83 = ROSE (Primary, logo, headlines, buttons, backgrounds)
-F0CFBA = EGGSHELL (Neutral, background)
-F2E9D9 = OFF WHITE (Neutral, background)
-F87472 = SALMON (Accent, button)
-464646 = GREY (Text)
-
 938B75 = OLIVE
 CECFE2 = LAVENDER
 E6EAED = GREY
@@ -29,7 +22,6 @@ html {
     background-color: #CECFE2 ;
     border: 8px outset #B9BBDA;
     border-radius: 12px;
-    /* height: 348px; */
     margin: 0 auto;
     width: 508px;
 }
@@ -60,7 +52,6 @@ html {
 
 #aNumDisp,
 #bNumDisp {
-    border: 1px dashed #fc35ad;
     height: 20px;
     min-width: 20px;
     text-align: center;
@@ -69,14 +60,12 @@ html {
 
 #opDisp,
 #equalsDisp {
-    border: 1px dashed #fc35ad;
     height: 20px;
     text-align: center;
     width: 20px;
 }
 
 #resultDisp {
-    /* border: 1px solid yellow; */
     font-size: 48px;
     height: 48px;
     margin: 6px;
@@ -90,14 +79,12 @@ button {
     font-family: "Jura", sans-serif;
     font-size: 28px;
     font-weight: 900;
-    /* height: 82px; */
     margin: 0;
     padding: 0;
     width: 94px;
 }
 
 #allBtnCtnr {
-    /* border: 1px solid seagreen; */
     display: flex;
     flex-direction: column;
     gap: 2px;
