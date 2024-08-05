@@ -10,6 +10,7 @@ const nine = document.getElementById('9').addEventListener('click', () => displa
 const zero = document.getElementById('zero').addEventListener('click', () => displayNum(0));
 
 let aNum = '';
+const back = document.getElementById('back').addEventListener('click', () => undoLast());
 let bNum = '';
 const aNumDisp = document.getElementById('aNumDisp');
 const bNumDisp = document.getElementById('bNumDisp');
@@ -57,8 +58,11 @@ function displayNum(num){
     opDisp.textContent == '' ? aNumDisp.textContent += num : 
     bNumDisp.textContent += num;
     resultDisp.textContent = '';
-    operator == '' ? aNum = +aNumDisp.textContent : 
-    bNum = +bNumDisp.textContent;
+    if (operator == ''){
+        aNum = +aNumDisp.textContent; 
+    } else {
+        bNum = +bNumDisp.textContent;
+    }
 }
 
 function displayOperator(operatorSelection){
@@ -74,9 +78,8 @@ function displayOperator(operatorSelection){
         bNum = '';
         result = '';
     } else {
-        resultDisp.textContent = '';
         opDisp.textContent = operatorSelection;
-        operator = operatorSelection;  
+        operator = operatorSelection; 
     } 
 }
 
@@ -90,10 +93,10 @@ function operate(aNum, bNum, operator){
     } else if (operator == '/'){
         divideBy(aNum, bNum);
     }
+    displayResult(result);
     // removing rounding function
     // result = result.toString(); 
     // if (result.length >= 11) result = roundNum(result);
-    displayResult(result);
 }
 
 function displayResult(result){
@@ -111,11 +114,15 @@ function displayDot(dot){
     if (opDisp.textContent == '') {
         if (aNumDisp.textContent.includes('.')){
             return;
-        } else aNumDisp.textContent += dot;
+        } else {
+            aNumDisp.textContent += dot;
+        }
     } else {
         if (bNumDisp.textContent.includes('.')){
             return; 
-        } else bNumDisp.textContent += dot;
+        } else {
+            bNumDisp.textContent += dot;
+        }    
     }
     aNum = +aNum;
     bNum = +bNum;
@@ -133,9 +140,20 @@ function clearDisplay() {
     result = ''; 
 }
 
-// KEYBOARD SUPPORT
+function undoLast(){
+    if (resultDisp.textContent != '') {
+        ;
+    } else if (opDisp.textContent == '') {
+        aNumDisp.textContent = aNumDisp.textContent.slice(0, -1); 
+    } else if (opDisp.textContent != '' && bNumDisp.textContent == ''){
+       opDisp.textContent = '';
+    } else {
+        bNumDisp.textContent = bNumDisp.textContent.slice(0, -1);
+    }
+    if (aNumDisp.textContent == '' && resultDisp.textContent == '') resultDisp.textContent = '0';
+}
+
 window.addEventListener('keydown', (e) => {
-    console.log(e);
     if (e.key === '0') {displayNum(0)};
     if (e.key === '1') {displayNum(1)};
     if (e.key === '2') {displayNum(2)};
@@ -153,6 +171,7 @@ window.addEventListener('keydown', (e) => {
     if (e.key === '*') {displayOperator('*')};
     if (e.key === '='|| e.key === 'Enter') {displayEquals(aNum, operator, bNum)};
     if (e.key === 'c' || e.key === 'C') {clearDisplay()};
+    if (e.key === 'Backspace') {undoLast()};
 });
     
 // function roundNum(result){
@@ -169,14 +188,3 @@ window.addEventListener('keydown', (e) => {
 //     let newResult = resultShortened.join('');
 //     return +newResult;
 // }
-
-// ------ TEST CENTRE ------- //
-
-/*
-PROBLEMS TO SOLVE
-1. logic to solve one operation at a time.
-2. back button
-
-
-
-*/
